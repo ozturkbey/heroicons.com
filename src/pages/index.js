@@ -1,3 +1,4 @@
+import pkg from 'package.json'
 import { clsx } from 'clsx'
 import { Menu, Tab, Transition } from '@headlessui/react'
 import Link from 'next/link'
@@ -310,7 +311,7 @@ function Illustration() {
   )
 }
 
-function Header() {
+function Header({ version }) {
   return (
     <header className="relative overflow-hidden bg-slate-50 pt-6">
       <Image
@@ -330,7 +331,7 @@ function Header() {
                 aria-label="Version"
                 className="flex items-center rounded-full border border-slate-700/10 bg-slate-100 py-1.5 pl-2.5 pr-3 text-xs font-semibold text-slate-500 transition hover:border-slate-700/20"
               >
-                v2.0.0
+                {version}
                 <svg viewBox="0 0 6 3" className="ml-2 w-1.5 overflow-visible">
                   <path
                     d="M0 0L3 3L6 0"
@@ -345,7 +346,7 @@ function Header() {
               <Menu.Items className="absolute top-full mt-1 w-40 rounded-lg bg-white py-2 text-sm font-semibold leading-6 text-slate-700 shadow ring-1 ring-slate-900/5">
                 <Menu.Item disabled>
                   <span className="flex items-center justify-between px-3 py-1 text-violet-500">
-                    v2.0.0
+                    {version}
                     <svg
                       viewBox="0 0 24 24"
                       fill="none"
@@ -974,7 +975,7 @@ function Icons({ icons, query }) {
   )
 }
 
-export default function Home() {
+export default function Home({ version }) {
   let searchBarRef = useRef()
   let searchInputRef = useRef()
   let tabListRef = useRef()
@@ -1031,7 +1032,7 @@ export default function Home() {
 
   return (
     <>
-      <Header />
+      <Header version={version} />
       <main>
         <Tab.Group>
           {({ selectedIndex }) => (
@@ -1134,4 +1135,12 @@ export default function Home() {
       </main>
     </>
   )
+}
+
+export async function getServerSideProps() {
+  return {
+    props: {
+      version: `v${pkg.dependencies.heroicons.substring(1)}`,
+    },
+  }
 }
