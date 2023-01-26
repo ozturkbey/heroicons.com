@@ -1140,7 +1140,7 @@ export default function Home({ version }) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   return {
     props: {
       version: `v${pkg.dependencies.heroicons.substring(1)}`,
