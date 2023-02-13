@@ -1029,7 +1029,7 @@ export default function Home({ version }) {
     window.addEventListener('keydown', onKeyDown)
 
     return () => {
-      window.removeEventListener('keydown', onkeydown)
+      window.removeEventListener('keydown', onKeyDown)
     }
   }, [])
 
